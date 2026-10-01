@@ -230,17 +230,17 @@ export function AgentChat() {
   }
 
   const recent = history.slice(0, 3);
-  const reviewPanel = prepared?.preview ? <div className="space-y-3 rounded-xl border border-amber-400/35 bg-amber-400/10 p-4 text-sm">
-        <div className="flex items-center gap-2 font-semibold text-amber-100"><ShieldCheck className="h-4 w-4" /> Review agent proposal</div>
-        <p className="text-slate-200">{prepared.message}</p>
+  const reviewPanel = prepared?.preview ? <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm">
+        <div className="flex items-center gap-2 font-semibold text-amber-800"><ShieldCheck className="h-4 w-4" /> Review agent proposal</div>
+        <p className="text-slate-800">{prepared.message}</p>
         <dl className="grid gap-x-4 gap-y-1 sm:grid-cols-[140px_1fr]">
-          <dt className="text-slate-400">Action</dt><dd>Whitelisted command payment</dd>
-          <dt className="text-slate-400">Recipient</dt><dd>{prepared.preview.recipientName || "Approved recipient"}</dd>
-          <dt className="text-slate-400">Sui address</dt><dd className="break-all font-mono text-xs">{prepared.preview.recipientAddress}</dd>
-          <dt className="text-slate-400">Amount</dt><dd className="font-semibold">{suiAmount(prepared.preview.amountMist)} SUI</dd>
-          <dt className="text-slate-400">Source</dt><dd>Shared vault</dd>
+          <dt className="text-slate-500">Action</dt><dd>Whitelisted command payment</dd>
+          <dt className="text-slate-500">Recipient</dt><dd>{prepared.preview.recipientName || "Approved recipient"}</dd>
+          <dt className="text-slate-500">Sui address</dt><dd className="break-all font-mono text-xs">{prepared.preview.recipientAddress}</dd>
+          <dt className="text-slate-500">Amount</dt><dd className="font-semibold">{suiAmount(prepared.preview.amountMist)} SUI</dd>
+          <dt className="text-slate-500">Source</dt><dd>Shared vault</dd>
         </dl>
-        <p className="text-xs text-amber-100/80">Confirming asks the agent to submit this payment. Move checks the grant on chain.</p>
+        <p className="text-xs text-amber-800/80">Confirming asks the agent to submit this payment. Move checks the grant on chain.</p>
         <div className="flex flex-wrap gap-2">
           <Button onClick={() => void confirm()} disabled={!!busy}><CheckCircle2 className="h-4 w-4" /> {busy === "confirm" ? "Submitting…" : "Confirm agent action"}</Button>
           <Button variant="outline" disabled={!!busy} onClick={() => { setPrepared(null); setError(null); }}><XCircle className="h-4 w-4" /> Cancel</Button>
@@ -248,10 +248,10 @@ export function AgentChat() {
       </div> : null;
 
   return <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-start">
-  <Card className="flex min-h-[70vh] flex-col overflow-hidden border-indigo-400/25 bg-slate-950/90">
-    <CardHeader className="border-b border-slate-800/80 bg-gradient-to-r from-indigo-500/10 to-cyan-500/5">
+  <Card className="flex min-h-[70vh] flex-col overflow-hidden border-sui/40 bg-white">
+    <CardHeader className="border-b border-slate-200 bg-gradient-to-r from-sui-soft to-white">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-300"><Bot className="h-5 w-5" /></div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sui-soft text-sui-dark"><Bot className="h-5 w-5" /></div>
         <div>
           <CardTitle>Ask the agent</CardTitle>
           <CardDescription>Pay a command-whitelist name. Review, then confirm.</CardDescription>
@@ -259,34 +259,34 @@ export function AgentChat() {
       </div>
     </CardHeader>
     <CardContent className="flex flex-1 flex-col space-y-4 pt-5">
-      {!workspace?.transferGrantId && <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-100">
+      {!workspace?.transferGrantId && <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
         Create a command grant on{" "}
         <Link href="/policies" className="font-semibold underline">Policies</Link>
         {" "}before chatting.
       </p>}
 
-      <div aria-live="polite" className="min-h-48 flex-1 space-y-3 overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-        {lines.length === 0 && <div className="space-y-2 text-sm text-slate-400">
-          <p className="font-medium text-slate-200">Try a clear instruction</p>
+      <div aria-live="polite" className="min-h-48 flex-1 space-y-3 overflow-y-auto rounded-xl border border-slate-200 bg-white/90 p-3">
+        {lines.length === 0 && <div className="space-y-2 text-sm text-slate-500">
+          <p className="font-medium text-slate-800">Try a clear instruction</p>
           <p>“Thanh toán Spotify 1 SUI.”</p>
           <p>“Transfer 0.1 SUI to An.”</p>
           <p>The agent asks for clarification or declines instructions that do not match your approved grants.</p>
         </div>}
         {lines.map((line) => <div key={line.id} className={`flex gap-2 ${line.author === "user" ? "justify-end" : "justify-start"}`}>
-          {line.author === "agent" && <Bot className="mt-1 h-4 w-4 shrink-0 text-indigo-300" />}
-          <div className={`max-w-[90%] rounded-xl px-3 py-2 text-sm ${line.author === "user" ? "bg-indigo-600 text-white" : line.status === "rejected" || line.status === "failed" ? "border border-rose-500/30 bg-rose-500/10 text-rose-100" : "border border-slate-700 bg-slate-900 text-slate-100"}`}>
+          {line.author === "agent" && <Bot className="mt-1 h-4 w-4 shrink-0 text-sui-dark" />}
+          <div className={`max-w-[90%] rounded-xl px-3 py-2 text-sm ${line.author === "user" ? "bg-sui text-white" : line.status === "rejected" || line.status === "failed" ? "border border-rose-200 bg-rose-50 text-rose-800" : "border border-slate-200 bg-white text-black"}`}>
             <p className="whitespace-pre-wrap break-words">{line.text}</p>
             {sourceLabel(line.source) && <p className="mt-1 text-xs opacity-70">Decision: {sourceLabel(line.source)}</p>}
-            {line.txDigest && <a className="mt-1 block break-all text-xs text-indigo-200 underline" href={explorerTxUrl(line.txDigest)} target="_blank" rel="noreferrer">View Sui transaction {line.txDigest}</a>}
+            {line.txDigest && <a className="mt-1 block break-all text-xs text-sui-dark underline" href={explorerTxUrl(line.txDigest)} target="_blank" rel="noreferrer">View Sui transaction {line.txDigest}</a>}
           </div>
-          {line.author === "user" && <UserRound className="mt-1 h-4 w-4 shrink-0 text-indigo-300" />}
+          {line.author === "user" && <UserRound className="mt-1 h-4 w-4 shrink-0 text-sui-dark" />}
         </div>)}
-        {busy === "prepare" && <p className="flex items-center gap-2 text-sm text-slate-300"><Loader2 className="h-4 w-4 animate-spin" /> Checking your request and grants…</p>}
+        {busy === "prepare" && <p className="flex items-center gap-2 text-sm text-slate-700"><Loader2 className="h-4 w-4 animate-spin" /> Checking your request and grants…</p>}
       </div>
 
       <div className="lg:hidden">{reviewPanel}</div>
 
-      {error && <p role="alert" className="flex items-start gap-2 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3 text-sm text-rose-200"><CircleAlert className="mt-0.5 h-4 w-4 shrink-0" /> {error}</p>}
+      {error && <p role="alert" className="flex items-start gap-2 rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700"><CircleAlert className="mt-0.5 h-4 w-4 shrink-0" /> {error}</p>}
       <div className="flex flex-wrap gap-2" role="tablist" aria-label="Agent request type">
         <Button type="button" variant={mode === "command" ? "default" : "outline"} onClick={() => setMode("command")}>Chat command</Button>
         <Button type="button" variant={mode === "bill-text" ? "default" : "outline"} onClick={() => setMode("bill-text")}>Bill text</Button>
@@ -296,7 +296,7 @@ export function AgentChat() {
         <label htmlFor="agent-command" className="text-sm font-medium">Your instruction</label>
         <Textarea id="agent-command" value={message} maxLength={500} onChange={(event) => setMessage(event.target.value)} placeholder="Thanh toán Spotify 1 SUI, or transfer 0.1 SUI to An…" className="min-h-24" />
         <div className="flex items-center justify-between gap-3">
-          <p className="text-xs text-slate-400">Only names and addresses registered in the on-chain grant can receive vault funds.</p>
+          <p className="text-xs text-slate-500">Only names and addresses registered in the on-chain grant can receive vault funds.</p>
           <Button type="submit" disabled={!!busy || !message.trim() || !!prepared}><Send className="h-4 w-4" /> Check instruction</Button>
         </div>
       </form> : <div className="space-y-3">
@@ -305,7 +305,7 @@ export function AgentChat() {
           <Textarea id="bill-text" value={billText} maxLength={20_000} onChange={(event) => setBillText(event.target.value)} placeholder="Paste the merchant, amount, and payment details…" className="min-h-32" />
         </> : <>
           <label htmlFor="bill-image" className="text-sm font-medium">Choose a PNG, JPEG, or WebP bill (up to 8 MB)</label>
-          <input id="bill-image" type="file" accept="image/png,image/jpeg,image/webp" className="block w-full text-sm text-slate-300 file:mr-3 file:rounded-md file:border-0 file:bg-indigo-600 file:px-3 file:py-2 file:text-white" onChange={(event) => {
+          <input id="bill-image" type="file" accept="image/png,image/jpeg,image/webp" className="block w-full text-sm text-slate-700 file:mr-3 file:rounded-md file:border-0 file:bg-sui file:px-3 file:py-2 file:text-white" onChange={(event) => {
             const file = event.target.files?.[0] ?? null;
             retryRequest.current = null;
             if (file && (!(["image/png", "image/jpeg", "image/webp"].includes(file.type)) || file.size > MAX_BILL_IMAGE_BYTES)) {
@@ -316,14 +316,14 @@ export function AgentChat() {
             setError(null);
             setBillImage(file);
           }} />
-          {billImage && <p className="break-all text-xs text-slate-400">Selected {billImage.name}. The image is not saved in the invoice history.</p>}
+          {billImage && <p className="break-all text-xs text-slate-500">Selected {billImage.name}. The image is not saved in the invoice history.</p>}
         </>}
         <div className="flex items-center justify-between gap-3">
-          <p className="text-xs text-slate-400">The agent matches the bill to the command whitelist and shows a review before submitting.</p>
+          <p className="text-xs text-slate-500">The agent matches the bill to the command whitelist and shows a review before submitting.</p>
           <Button type="button" disabled={!!busy || !!prepared || (mode === "bill-text" ? !billText.trim() : !billImage)} onClick={() => void prepareBill()}><Send className="h-4 w-4" /> Read and review bill</Button>
         </div>
       </div>}
-      <div className="lg:hidden space-y-2 border-t border-slate-800 pt-4">
+      <div className="lg:hidden space-y-2 border-t border-slate-200 pt-4">
         {recent.map((item) => (
           <HistoryRow key={item.proposalId} item={item} busy={busy} prepared={!!prepared} onReview={setPrepared} onConfirm={confirm} />
         ))}
@@ -332,16 +332,16 @@ export function AgentChat() {
   </Card>
   <aside className="hidden space-y-4 lg:block">
     {reviewPanel ?? (
-      <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-4 text-sm text-slate-400">
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-500">
         Proposals to confirm appear here after you check an instruction.
       </div>
     )}
-    <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-4">
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
       <div className="mb-2 flex items-center justify-between gap-2">
-        <h4 className="text-sm font-semibold text-white">Recent</h4>
+        <h4 className="text-sm font-semibold text-black">Recent</h4>
         <Button variant="ghost" size="sm" onClick={() => void refreshHistory().catch((cause) => setError(cause instanceof Error ? cause.message : String(cause)))}>Refresh</Button>
       </div>
-      {recent.length === 0 ? <p className="text-sm text-slate-400">No agent requests yet.</p> : (
+      {recent.length === 0 ? <p className="text-sm text-slate-500">No agent requests yet.</p> : (
         <div className="space-y-2">{recent.map((item) => (
           <HistoryRow key={item.proposalId} item={item} busy={busy} prepared={!!prepared} onReview={setPrepared} onConfirm={confirm} />
         ))}</div>
@@ -361,10 +361,10 @@ function HistoryRow({
   onConfirm: (proposalId?: string) => Promise<void>;
 }) {
   return (
-    <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-3 text-xs">
-      <p className="font-medium text-slate-100">Pay · {item.recipientName} · {suiAmount(item.amountMist)} SUI</p>
-      <p className="mt-1 text-slate-400">{new Date(item.createdAt).toLocaleString()} · {item.state}</p>
-      {item.errorMessage && <p className="mt-1 text-rose-300">{item.errorMessage}</p>}
+    <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs">
+      <p className="font-medium text-black">Pay · {item.recipientName} · {suiAmount(item.amountMist)} SUI</p>
+      <p className="mt-1 text-slate-500">{new Date(item.createdAt).toLocaleString()} · {item.state}</p>
+      {item.errorMessage && <p className="mt-1 text-rose-700">{item.errorMessage}</p>}
       <div className="mt-2 flex flex-wrap items-center gap-2">
         {item.state === "ready" && item.action === "transfer" && Date.parse(item.expiresAt) > Date.now() && (
           <Button variant="outline" size="sm" disabled={!!busy || prepared} onClick={() => onReview({
@@ -377,7 +377,7 @@ function HistoryRow({
         {(item.state === "submitted" || item.state === "signing") && (
           <Button variant="outline" size="sm" disabled={!!busy} onClick={() => void onConfirm(item.proposalId)}>Check status</Button>
         )}
-        {item.txDigest && <a className="text-indigo-300 underline" href={explorerTxUrl(item.txDigest)} target="_blank" rel="noreferrer">tx</a>}
+        {item.txDigest && <a className="text-sui-dark underline" href={explorerTxUrl(item.txDigest)} target="_blank" rel="noreferrer">tx</a>}
       </div>
     </div>
   );

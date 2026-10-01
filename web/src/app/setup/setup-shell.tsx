@@ -211,9 +211,9 @@ export function SetupShell() {
   return (
     <div className="min-h-screen">
       {/* Lightweight top bar — full Header is on agent home */}
-      <div className="border-b border-slate-800/80 bg-slate-950/70 px-4 py-3 text-sm text-slate-300 sm:px-6">
+      <div className="border-b border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-700 sm:px-6">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-          <Link href="/" className="font-medium text-white hover:text-indigo-200">
+          <Link href="/" className="font-medium text-black hover:text-sui-dark">
             ← Agent home
           </Link>
           <span className="text-xs text-slate-500">First-time setup</span>
@@ -221,13 +221,13 @@ export function SetupShell() {
       </div>
     <main className="mx-auto max-w-3xl space-y-6 px-4 py-8 sm:px-6">
       <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sui-dark">
           First-time setup
         </p>
-        <h1 className="text-3xl font-semibold tracking-tight text-white">
+        <h1 className="text-3xl font-semibold tracking-tight text-black">
           Set up your control plane
         </h1>
-        <p className="max-w-2xl text-sm text-slate-400">
+        <p className="max-w-2xl text-sm text-slate-500">
           New here? Finish these steps once. After that you land on Agent.
           Create a command grant under Policies before chatting. Automatic
           monthly subscriptions are optional.
@@ -263,27 +263,27 @@ export function SetupShell() {
         </CardHeader>
         <CardContent className="space-y-4">
           {workspaceLoading || auth.checking ? (
-            <p className="flex items-center gap-2 text-sm text-slate-300">
+            <p className="flex items-center gap-2 text-sm text-slate-700">
               <Loader2 className="h-4 w-4 animate-spin" /> Checking your workspace…
             </p>
           ) : null}
 
           {stepIndex === 0 && (
             <div className="space-y-4">
-              <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+              <div className="rounded-xl border border-slate-200 bg-white/90 p-4">
                 <ConnectButton />
               </div>
               {auth.account ? (
-                <p className="break-all text-xs text-slate-400">
+                <p className="break-all text-xs text-slate-500">
                   Connected: {auth.account.address}
                 </p>
               ) : (
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-500">
                   Install / open Slush, Suiet, or another Sui wallet, then connect.
                 </p>
               )}
               {!auth.networkOk && auth.account ? (
-                <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">
+                <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
                   Wrong network. Switch wallet to <strong>{auth.expectedNetwork}</strong>.
                 </p>
               ) : null}
@@ -292,7 +292,7 @@ export function SetupShell() {
 
           {stepIndex === 1 && (
             <div className="space-y-4">
-              <p className="break-all text-xs text-slate-400">
+              <p className="break-all text-xs text-slate-500">
                 Wallet: {auth.account?.address}
               </p>
               <Button
@@ -327,7 +327,7 @@ export function SetupShell() {
           {stepIndex === 3 && (
             <div className="space-y-4">
               <label className="block space-y-1 text-sm">
-                <span className="text-slate-300">Amount (SUI)</span>
+                <span className="text-slate-700">Amount (SUI)</span>
                 <Input
                   type="number"
                   min="0.000000001"
@@ -355,7 +355,7 @@ export function SetupShell() {
           {stepIndex === 4 && (
             <div className="space-y-4">
               <label className="block space-y-1 text-sm">
-                <span className="text-slate-300">Total monthly budget (SUI)</span>
+                <span className="text-slate-700">Total monthly budget (SUI)</span>
                 <Input
                   type="number"
                   min="0.000000001"
@@ -366,7 +366,7 @@ export function SetupShell() {
               </label>
               <p className="text-xs text-slate-500">
                 Agent address from env:{" "}
-                <code className="text-indigo-300">
+                <code className="text-sui-dark">
                   {cfg.agentAddress || "(missing NEXT_PUBLIC_AGENT_ADDRESS)"}
                 </code>
               </p>
@@ -395,11 +395,11 @@ export function SetupShell() {
 
           {stepIndex >= 5 && (
             <div className="space-y-4">
-              <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm text-emerald-50">
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
                 <p className="mb-2 flex items-center gap-2 font-semibold">
                   <CheckCircle2 className="h-4 w-4" /> You&apos;re ready
                 </p>
-                <ul className="space-y-1 text-xs text-emerald-100/90">
+                <ul className="space-y-1 text-xs text-emerald-800">
                   <li>Vault: <code className="break-all">{vaultId}</code></li>
                   <li>Auto policy: {policyId ? <code className="break-all">{policyId}</code> : "skipped (optional)"}</li>
                 </ul>
@@ -414,16 +414,16 @@ export function SetupShell() {
               </div>
               <p className="text-xs text-slate-500">
                 Next: create a command grant under{" "}
-                <Link href="/policies" className="text-indigo-300 underline">Policies</Link>
+                <Link href="/policies" className="text-sui-dark underline">Policies</Link>
                 {" "}before chatting. Fund or withdraw on{" "}
-                <Link href="/assets" className="text-indigo-300 underline">Assets</Link>.
+                <Link href="/assets" className="text-sui-dark underline">Assets</Link>.
               </p>
             </div>
           )}
 
           {lastDigest ? (
             <a
-              className="inline-block text-xs text-indigo-300 underline"
+              className="inline-block text-xs text-sui-dark underline"
               href={explorerTxUrl(lastDigest)}
               target="_blank"
               rel="noreferrer"
@@ -433,12 +433,12 @@ export function SetupShell() {
           ) : null}
 
           {error ? (
-            <p className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-100">
+            <p className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-800">
               {error}
             </p>
           ) : null}
           {auth.error ? (
-            <p className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-100">
+            <p className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-800">
               {auth.error}
             </p>
           ) : null}
@@ -457,7 +457,7 @@ export function SetupShell() {
           Already have a vault? You can{" "}
           <button
             type="button"
-            className="text-indigo-300 underline"
+            className="text-sui-dark underline"
             onClick={() => router.push("/")}
           >
             open the home page

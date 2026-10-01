@@ -10,7 +10,7 @@ import { VAULT_BALANCES_CHANGED } from "@/lib/vault-events";
 import type { VaultBalances } from "@/services/balances.service";
 
 function Amount({ mist }: { mist: string }) {
-  return <span className="font-medium text-slate-100">{formatSuiFromMist(mist)} SUI</span>;
+  return <span className="font-medium text-black">{formatSuiFromMist(mist)} SUI</span>;
 }
 
 export function StatusStrip() {
@@ -34,19 +34,19 @@ export function StatusStrip() {
   const needsTransfer = Boolean(workspace?.vaultId && !workspace.transferGrantId);
 
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-950/70 px-4 py-3 sm:px-5">
+    <section className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 sm:px-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1 text-sm">
-          <Link href="/assets" className="hover:text-white">
-            <span className="text-slate-400">Vault </span>
+          <Link href="/assets" className="hover:text-sui-dark">
+            <span className="text-slate-500">Vault </span>
             {data ? <Amount mist={data.vaultBalanceMist} /> : "…"}
           </Link>
-          <Link href="/assets" className="hover:text-white">
-            <span className="text-slate-400">Command </span>
+          <Link href="/assets" className="hover:text-sui-dark">
+            <span className="text-slate-500">Command </span>
             {data ? <Amount mist={data.spendableCommandMist} /> : "…"}
           </Link>
-          <Link href="/assets" className="hover:text-white">
-            <span className="text-slate-400">Auto </span>
+          <Link href="/assets" className="hover:text-sui-dark">
+            <span className="text-slate-500">Auto </span>
             {data ? <Amount mist={data.spendableAutoMist} /> : "…"}
           </Link>
         </div>
@@ -61,7 +61,7 @@ export function StatusStrip() {
         </div>
       </div>
       {needsTransfer ? (
-        <p className="mt-2 text-sm text-amber-100">
+        <p className="mt-2 text-sm text-amber-800">
           Chat needs a command grant.{" "}
           <Link href="/policies" className="font-semibold underline">Open Policies</Link>
         </p>

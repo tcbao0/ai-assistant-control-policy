@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
+@theme {
+  --color-sui: #4da2ff;
+  --color-sui-dark: #1677e0;
+  --color-sui-soft: #eaf5ff;
+}
+
 :root {
-  --primary: #4f46e5;
+  --primary: #4da2ff;
   --primary-foreground: #ffffff;
-  --background: #020617;
-  --foreground: #e2e8f0;
-  --border: #1e293b;
+  --background: #ffffff;
+  --foreground: #0b0f14;
+  --border: #d9e4ef;
   --radius: 0.75rem;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
@@ -18,9 +24,9 @@ body {
 body {
   margin: 0;
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(79, 70, 229, 0.25), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(244, 63, 94, 0.12), transparent 55%),
-    #020617;
+    radial-gradient(1100px 520px at 8% -12%, rgba(77, 162, 255, 0.18), transparent 58%),
+    radial-gradient(800px 420px at 100% 0%, rgba(77, 162, 255, 0.08), transparent 52%),
+    #ffffff;
   color: var(--foreground);
   font-family:
     ui-sans-serif,
@@ -32,4 +38,9 @@ body {
     Arial,
     "Apple Color Emoji",
     "Segoe UI Emoji";
+}
+
+button[data-dapp-kit],
+[data-dapp-kit] button {
+  border-radius: 0.5rem !important;
 }

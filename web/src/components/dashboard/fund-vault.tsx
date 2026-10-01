@@ -88,11 +88,11 @@ export function FundVaultControl({ defaultAmount = "2" }: { defaultAmount?: stri
           {busy ? "Funding…" : "Fund vault"}
         </Button>
       </div>
-      <p className="text-xs text-slate-400">
+      <p className="text-xs text-slate-500">
         Pays from your connected wallet into the shared vault. No passcode. Command and automatic grants both spend this pool.
       </p>
-      {message ? <p role="status" className="text-sm text-emerald-300">{message}</p> : null}
-      {error ? <p role="alert" className="text-sm text-rose-300">{error}</p> : null}
+      {message ? <p role="status" className="text-sm text-emerald-700">{message}</p> : null}
+      {error ? <p role="alert" className="text-sm text-rose-700">{error}</p> : null}
     </div>
   );
 }

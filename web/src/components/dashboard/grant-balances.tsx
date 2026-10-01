@@ -33,7 +33,7 @@ function Bar({ spentMist, budgetMist }: { spentMist: string; budgetMist: string 
   const pct = usedRatio(spentMist, budgetMist);
   const tone = pct >= 90 ? "bg-rose-400" : pct >= 70 ? "bg-amber-400" : "bg-emerald-400";
   return (
-    <div className="h-1.5 overflow-hidden rounded-full bg-slate-800">
+    <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
       <div className={`h-full ${tone}`} style={{ width: `${pct}%` }} />
     </div>
   );
@@ -48,11 +48,11 @@ function CommandCard({ command, loading }: { command: CommandBalance | null; loa
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2"><Wallet className="h-4 w-4 text-indigo-300" /> Command grant</CardTitle>
+          <CardTitle className="flex items-center gap-2"><Wallet className="h-4 w-4 text-sui-dark" /> Command grant</CardTitle>
           <CardDescription>Pay-on-command whitelist. Chat spends this daily budget.</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-slate-400">{loading ? "Loading remaining daily budget…" : <>No command grant yet. Create one under <Link className="text-indigo-300 underline" href="/policies">Policies</Link>.</>}</p>
+          <p className="text-sm text-slate-500">{loading ? "Loading remaining daily budget…" : <>No command grant yet. Create one under <Link className="text-sui-dark underline" href="/policies">Policies</Link>.</>}</p>
         </CardContent>
       </Card>
     );
@@ -61,7 +61,7 @@ function CommandCard({ command, loading }: { command: CommandBalance | null; loa
     <Card>
       <CardHeader>
         <div className="flex items-start justify-between gap-2">
-          <CardTitle className="flex items-center gap-2"><Wallet className="h-4 w-4 text-indigo-300" /> Command grant</CardTitle>
+          <CardTitle className="flex items-center gap-2"><Wallet className="h-4 w-4 text-sui-dark" /> Command grant</CardTitle>
           <Badge variant={command.active ? "success" : "danger"}>{command.active ? "Active" : "Revoked"}</Badge>
         </div>
         <CardDescription>Remaining today against the daily cap. Vault SUI is still required to pay.</CardDescription>
@@ -70,16 +70,16 @@ function CommandCard({ command, loading }: { command: CommandBalance | null; loa
         <p className="text-2xl font-semibold tracking-tight">
           <Amount mist={command.remainingMist} />
         </p>
-        <p className="text-xs text-slate-400">Daily remaining cap. Spendable now is the smaller of this and vault SUI.</p>
+        <p className="text-xs text-slate-500">Daily remaining cap. Spendable now is the smaller of this and vault SUI.</p>
         <Bar spentMist={command.spentMist} budgetMist={command.dailyBudgetMist} />
         <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-          <dt className="text-slate-400">Daily cap</dt>
+          <dt className="text-slate-500">Daily cap</dt>
           <dd><Amount mist={command.dailyBudgetMist} /></dd>
-          <dt className="text-slate-400">Spent today</dt>
+          <dt className="text-slate-500">Spent today</dt>
           <dd><Amount mist={command.spentMist} /></dd>
-          <dt className="text-slate-400">Per payment</dt>
+          <dt className="text-slate-500">Per payment</dt>
           <dd><Amount mist={command.perPaymentLimitMist} /></dd>
-          <dt className="text-slate-400">Whitelist</dt>
+          <dt className="text-slate-500">Whitelist</dt>
           <dd>{command.recipientCount} name{command.recipientCount === 1 ? "" : "s"}</dd>
         </dl>
       </CardContent>
@@ -96,7 +96,7 @@ function AutoCard({ auto, loading }: { auto: AutoBalance | null; loading: boolea
           <CardDescription>Scheduler spends this monthly budget on the due day.</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-slate-400">{loading ? "Loading remaining monthly budget…" : <>No automatic policy yet. Optional under <Link className="text-indigo-300 underline" href="/policies">Policies</Link>.</>}</p>
+          <p className="text-sm text-slate-500">{loading ? "Loading remaining monthly budget…" : <>No automatic policy yet. Optional under <Link className="text-sui-dark underline" href="/policies">Policies</Link>.</>}</p>
         </CardContent>
       </Card>
     );
@@ -114,20 +114,20 @@ function AutoCard({ auto, loading }: { auto: AutoBalance | null; loading: boolea
         <p className="text-2xl font-semibold tracking-tight">
           <Amount mist={auto.remainingMist} />
         </p>
-        <p className="text-xs text-slate-400">Monthly remaining cap. Spendable now is the smaller of this and vault SUI.</p>
+        <p className="text-xs text-slate-500">Monthly remaining cap. Spendable now is the smaller of this and vault SUI.</p>
         <Bar spentMist={auto.spentMist} budgetMist={auto.monthlyBudgetMist} />
         <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-          <dt className="text-slate-400">Monthly cap</dt>
+          <dt className="text-slate-500">Monthly cap</dt>
           <dd><Amount mist={auto.monthlyBudgetMist} /></dd>
-          <dt className="text-slate-400">Spent this month</dt>
+          <dt className="text-slate-500">Spent this month</dt>
           <dd><Amount mist={auto.spentMist} /></dd>
         </dl>
         {auto.services.length > 0 ? (
-          <ul className="space-y-2 border-t border-slate-800 pt-3 text-sm">
+          <ul className="space-y-2 border-t border-slate-200 pt-3 text-sm">
             {auto.services.map((service) => (
               <li key={service.address} className="flex flex-wrap items-baseline justify-between gap-2">
-                <span className="text-slate-200">{service.name}<span className="ml-2 text-xs text-slate-500">day {service.paymentDay}</span></span>
-                <span className="text-slate-300">
+                <span className="text-slate-800">{service.name}<span className="ml-2 text-xs text-slate-500">day {service.paymentDay}</span></span>
+                <span className="text-slate-700">
                   <Amount mist={service.remainingMist} /> / <Amount mist={service.monthlyBudgetMist} className="text-slate-500" />
                 </span>
               </li>
@@ -195,19 +195,19 @@ export function GrantBalances() {
     <section className="space-y-3">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-white">Digital assets</p>
-          <p className="text-xs text-slate-400">SUI in the shared vault is the holding. Grants only cap how much the agent may spend.</p>
+          <p className="text-sm font-semibold text-black">Digital assets</p>
+          <p className="text-xs text-slate-500">SUI in the shared vault is the holding. Grants only cap how much the agent may spend.</p>
         </div>
         <Button variant="outline" size="sm" disabled={loading} onClick={() => void refresh()}>
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
           Refresh
         </Button>
       </div>
-      {error ? <p className="text-sm text-rose-300">{error}</p> : null}
+      {error ? <p className="text-sm text-rose-700">{error}</p> : null}
       <div className="grid gap-3 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Vault className="h-4 w-4 text-emerald-300" /> Shared vault</CardTitle>
+            <CardTitle className="flex items-center gap-2"><Vault className="h-4 w-4 text-emerald-700" /> Shared vault</CardTitle>
             <CardDescription>On-chain SUI the owner custodied. Agent spends from here under grants.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -215,13 +215,13 @@ export function GrantBalances() {
               {data ? <Amount mist={data.vaultBalanceMist} /> : loading ? "…" : "—"}
             </p>
             <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-              <dt className="text-slate-400">Command can spend now</dt>
+              <dt className="text-slate-500">Command can spend now</dt>
               <dd>{data ? <Amount mist={data.spendableCommandMist} /> : "—"}</dd>
-              <dt className="text-slate-400">Auto can spend now</dt>
+              <dt className="text-slate-500">Auto can spend now</dt>
               <dd>{data ? <Amount mist={data.spendableAutoMist} /> : "—"}</dd>
             </dl>
             <p className="break-all text-xs text-slate-500">{workspace.vaultId}</p>
-            <div className="space-y-4 border-t border-slate-800 pt-3">
+            <div className="space-y-4 border-t border-slate-200 pt-3">
               <FundVaultControl />
               <WithdrawVaultControl maxMist={data?.vaultBalanceMist} />
             </div>
@@ -230,24 +230,24 @@ export function GrantBalances() {
         <CommandCard command={data?.command ?? null} loading={loading && !data} />
         <AutoCard auto={data?.auto ?? null} loading={loading && !data} />
       </div>
-      <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-4">
-        <p className="text-sm font-semibold text-white">Vault movements</p>
-        <p className="mb-3 text-xs text-slate-400">Funds in, owner withdrawals, command pays, automatic pays.</p>
+      <div className="rounded-2xl border border-slate-200 bg-white p-4">
+        <p className="text-sm font-semibold text-black">Vault movements</p>
+        <p className="mb-3 text-xs text-slate-500">Funds in, owner withdrawals, command pays, automatic pays.</p>
         {ledger.length === 0 ? (
-          <p className="text-sm text-slate-400">{loading ? "Loading ledger…" : "No movements recorded yet."}</p>
+          <p className="text-sm text-slate-500">{loading ? "Loading ledger…" : "No movements recorded yet."}</p>
         ) : (
           <ul className="space-y-2 text-sm">
             {ledger.map((row) => (
-              <li key={`${row.digest}:${row.kind}`} className="flex flex-wrap items-baseline justify-between gap-2 rounded-lg border border-slate-800 px-3 py-2">
+              <li key={`${row.digest}:${row.kind}`} className="flex flex-wrap items-baseline justify-between gap-2 rounded-lg border border-slate-200 px-3 py-2">
                 <span>
-                  <span className="font-medium text-slate-100">{kindLabel(row.kind)}</span>
-                  {row.counterparty ? <span className="ml-2 text-slate-400">{row.counterparty}</span> : null}
+                  <span className="font-medium text-black">{kindLabel(row.kind)}</span>
+                  {row.counterparty ? <span className="ml-2 text-slate-500">{row.counterparty}</span> : null}
                 </span>
-                <span className="text-slate-200">
+                <span className="text-slate-800">
                   {row.kind === "withdraw" || row.kind === "command_pay" || row.kind === "auto_pay" ? "−" : "+"}
                   <Amount mist={row.amountMist} />
                   {row.digest ? (
-                    <a className="ml-2 text-xs text-indigo-300 underline" href={explorerTxUrl(row.digest)} target="_blank" rel="noreferrer">tx</a>
+                    <a className="ml-2 text-xs text-sui-dark underline" href={explorerTxUrl(row.digest)} target="_blank" rel="noreferrer">tx</a>
                   ) : null}
                 </span>
               </li>

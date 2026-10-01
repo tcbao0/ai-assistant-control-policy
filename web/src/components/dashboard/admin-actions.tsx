@@ -163,10 +163,10 @@ export function AdminActions() {
     <CardTitle>Automatic monthly</CardTitle>
     <CardDescription>Register services the scheduler may pay on the due day. Fund the vault on Assets. Chat does not use this whitelist.</CardDescription>
   </CardHeader><CardContent className="space-y-5">
-    <p className="text-sm text-slate-400">Need SUI in the vault? <Link className="text-indigo-300 underline" href="/assets">Open Assets</Link>.</p>
+    <p className="text-sm text-slate-500">Need SUI in the vault? <Link className="text-sui-dark underline" href="/assets">Open Assets</Link>.</p>
     {!workspace?.policyId && <div className="grid gap-3 sm:grid-cols-[minmax(0,16rem)_auto] sm:items-end">
       <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-        <span className="text-slate-300">Total monthly budget (SUI)</span>
+        <span className="text-slate-700">Total monthly budget (SUI)</span>
         <Input type="number" min="0.000000001" value={totalBudget} onChange={(e) => setTotalBudget(e.target.value)} />
       </label>
       <Button disabled={busy || !workspace?.vaultId} onClick={() => void action(createPolicy)}>Create shared policy</Button>
@@ -174,7 +174,7 @@ export function AdminActions() {
     {workspace?.policyId && <>
       <div className="grid gap-3 sm:grid-cols-[minmax(0,16rem)_1fr] sm:items-end">
         <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-          <span className="text-slate-300">Total monthly budget (SUI)</span>
+          <span className="text-slate-700">Total monthly budget (SUI)</span>
           <Input type="number" value={totalBudget} onChange={(e) => setTotalBudget(e.target.value)} />
         </label>
         <div className="flex flex-wrap gap-2">
@@ -185,36 +185,36 @@ export function AdminActions() {
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-          <span className="text-slate-300">Service name</span>
+          <span className="text-slate-700">Service name</span>
           <Input value={name} onChange={(e) => setName(e.target.value)} />
         </label>
         <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-          <span className="text-slate-300">Recipient address</span>
+          <span className="text-slate-700">Recipient address</span>
           <Input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="0x…" />
         </label>
         <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-          <span className="text-slate-300">Charge (SUI)</span>
+          <span className="text-slate-700">Charge (SUI)</span>
           <Input type="number" value={charge} onChange={(e) => setCharge(e.target.value)} />
         </label>
         <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-          <span className="text-slate-300">Monthly cap (SUI)</span>
+          <span className="text-slate-700">Monthly cap (SUI)</span>
           <Input type="number" value={budget} onChange={(e) => setBudget(e.target.value)} />
         </label>
         <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-          <span className="text-slate-300">Months</span>
+          <span className="text-slate-700">Months</span>
           <Input type="number" min="1" max="120" value={months} onChange={(e) => setMonths(e.target.value)} />
         </label>
         <label className="flex min-w-0 flex-col gap-1.5 text-sm">
-          <span className="text-slate-300">Payment day (UTC)</span>
+          <span className="text-slate-700">Payment day (UTC)</span>
           <Input type="number" min="1" max={daysThisMonth} value={day} onChange={(e) => setDay(e.target.value)} />
           <span className="text-xs text-slate-500">Today is {now.getUTCDate()}. Use 1–{daysThisMonth}.</span>
         </label>
       </div>
       <Button disabled={busy} onClick={() => void action(addService)}>Register service and whitelist address</Button>
-      <div className="space-y-2">{services.map((service) => <div key={service.address} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700 p-3 text-sm"><span className="min-w-0 break-all">{service.name} · {service.address} · day {service.paymentDay} · {service.months} months · {Number(service.chargeAmount) / 1e9} SUI/month</span><Button variant="outline" disabled={busy} onClick={() => void action(() => removeService(service.address))}>Remove</Button></div>)}</div>
-      <div className="space-y-2 rounded-xl border border-slate-700 p-4">
+      <div className="space-y-2">{services.map((service) => <div key={service.address} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 p-3 text-sm"><span className="min-w-0 break-all">{service.name} · {service.address} · day {service.paymentDay} · {service.months} months · {Number(service.chargeAmount) / 1e9} SUI/month</span><Button variant="outline" disabled={busy} onClick={() => void action(() => removeService(service.address))}>Remove</Button></div>)}</div>
+      <div className="space-y-2 rounded-xl border border-slate-200 p-4">
         <p className="text-sm font-semibold">Test automatic pay</p>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-500">
           Scheduler does not run by itself. Register a service with payment day ≤ UTC today ({now.getUTCDate()}), fund the vault, fund the agent wallet for gas, then run due payments. Chat never pays this grant.
         </p>
         <Button disabled={busy || !active || services.length === 0} onClick={() => void action(runDuePayments)}>
@@ -222,6 +222,6 @@ export function AdminActions() {
         </Button>
       </div>
     </>}
-    {message && <p className="text-emerald-300">{message}</p>}{error && <p className="text-rose-300">{error}</p>}
+    {message && <p className="text-emerald-700">{message}</p>}{error && <p className="text-rose-700">{error}</p>}
   </CardContent></Card>;
 }

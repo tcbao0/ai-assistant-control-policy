@@ -20,20 +20,20 @@ export function Header() {
   const auth = useWalletAuth();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <Link
             href="/"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-500/20 text-indigo-300 ring-1 ring-indigo-400/30"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sui-soft text-sui-dark ring-1 ring-sui/40"
           >
             <Shield className="h-5 w-5" />
           </Link>
           <div className="hidden min-w-0 sm:block">
-            <p className="text-sm font-semibold tracking-tight text-white">
+            <p className="text-sm font-semibold tracking-tight text-black">
               Sui Agent Control Plane
             </p>
-            <p className="text-xs text-slate-400">Agent proposes · Owner holds · Chain enforces</p>
+            <p className="text-xs text-slate-500">Agent proposes · Owner holds · Chain enforces</p>
           </div>
         </div>
 
@@ -46,7 +46,7 @@ export function Header() {
                 href={link.href}
                 className={cn(
                   "rounded-lg px-3 py-1.5 text-sm whitespace-nowrap",
-                  active ? "bg-slate-800 text-white" : "text-slate-400 hover:bg-slate-900 hover:text-slate-200",
+                  active ? "bg-sui-soft text-sui-dark" : "text-slate-500 hover:bg-sui-soft hover:text-black",
                 )}
               >
                 {link.label}

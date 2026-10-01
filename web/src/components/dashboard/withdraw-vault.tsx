@@ -90,11 +90,11 @@ export function WithdrawVaultControl({ maxMist }: { maxMist?: string | null }) {
           {busy ? "Withdrawing…" : "Withdraw"}
         </Button>
       </div>
-      <p className="text-xs text-slate-400">
+      <p className="text-xs text-slate-500">
         Owner wallet signs this. The agent cannot withdraw. Grants do not block owner withdrawal.
       </p>
-      {message ? <p role="status" className="text-sm text-emerald-300">{message}</p> : null}
-      {error ? <p role="alert" className="text-sm text-rose-300">{error}</p> : null}
+      {message ? <p role="status" className="text-sm text-emerald-700">{message}</p> : null}
+      {error ? <p role="alert" className="text-sm text-rose-700">{error}</p> : null}
     </div>
   );
 }

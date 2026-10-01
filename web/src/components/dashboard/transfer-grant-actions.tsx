@@ -253,16 +253,16 @@ export function TransferGrantActions() {
       <CardDescription>Whitelist names and addresses for chat payments. The agent may send vault SUI only after you confirm, within the per-transaction and daily caps stored on Sui.</CardDescription>
     </CardHeader>
     <CardContent className="space-y-5">
-      {passcodeConfigured === false && <div className="space-y-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
-        <p className="text-sm font-semibold text-amber-100">Create a passcode for whitelist changes</p>
-        <p className="text-xs text-slate-300">The server checks this passcode before opening a wallet signature. The owner wallet and TransferAdminCap enforce the change on chain; no passcode is sent to Sui.</p>
+      {passcodeConfigured === false && <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
+        <p className="text-sm font-semibold text-amber-800">Create a passcode for whitelist changes</p>
+        <p className="text-xs text-slate-700">The server checks this passcode before opening a wallet signature. The owner wallet and TransferAdminCap enforce the change on chain; no passcode is sent to Sui.</p>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="text-sm">Passcode (at least 12 characters)<Input type="password" autoComplete="new-password" value={newPasscode} onChange={(event) => setNewPasscode(event.target.value)} /></label>
           <label className="text-sm">Repeat passcode<Input type="password" autoComplete="new-password" value={repeatPasscode} onChange={(event) => setRepeatPasscode(event.target.value)} /></label>
         </div>
         <Button disabled={busy || newPasscode.length < 12 || !repeatPasscode} onClick={() => void work(createPasscode)}>Create passcode</Button>
       </div>}
-      {passcodeConfigured === true && <details className="rounded-lg border border-slate-800 p-3 text-sm">
+      {passcodeConfigured === true && <details className="rounded-lg border border-slate-200 p-3 text-sm">
         <summary className="cursor-pointer font-medium">Change passcode</summary>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           <label>Current passcode<Input type="password" autoComplete="current-password" value={oldPasscode} onChange={(event) => setOldPasscode(event.target.value)} /></label>
@@ -273,7 +273,7 @@ export function TransferGrantActions() {
       </details>}
 
       {!workspace?.transferGrantId ? <div className="space-y-3">
-        <p className="text-sm text-slate-300">Create one command grant for this vault. Chat payments use this whitelist; automatic monthly subscriptions use a separate policy.</p>
+        <p className="text-sm text-slate-700">Create one command grant for this vault. Chat payments use this whitelist; automatic monthly subscriptions use a separate policy.</p>
         <div className="grid gap-3 sm:grid-cols-3">
           <label className="text-sm">Max per payment (SUI)<Input type="number" min="0.000000001" step="any" value={perPaymentLimit} onChange={(event) => setPerPaymentLimit(event.target.value)} /></label>
           <label className="text-sm">Daily budget (SUI)<Input type="number" min="0.000000001" step="any" value={dailyBudget} onChange={(event) => setDailyBudget(event.target.value)} /></label>
@@ -283,19 +283,19 @@ export function TransferGrantActions() {
           try { prepare({ kind: "create", perPaymentLimit, dailyBudget, expiresAtMs: futureTime(expiry) }); }
           catch (cause) { setError(cause instanceof Error ? cause.message : String(cause)); }
         }}>Create command grant</Button>
-        <p className="text-xs text-slate-400">The grant and its admin capability are registered to this wallet after you approve creation.</p>
+        <p className="text-xs text-slate-500">The grant and its admin capability are registered to this wallet after you approve creation.</p>
       </div> : grant ? <div className="space-y-5">
-        <div className="grid gap-3 rounded-xl border border-slate-700 bg-slate-900/60 p-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
-          <div><p className="text-xs text-slate-400">Status</p><p className={grant.active ? "font-semibold text-emerald-300" : "font-semibold text-rose-300"}>{grant.active ? "Active" : "Revoked"}</p></div>
-          <div><p className="text-xs text-slate-400">Vault SUI</p><p>{vaultBalanceMist ? `${formatSuiFromMist(vaultBalanceMist)} SUI` : "…"}</p></div>
-          <div><p className="text-xs text-slate-400">Remaining today</p><p>{fromMist(remainingDailyMist(grant).toString())} / {fromMist(grant.dailyBudget)} SUI</p></div>
-          <div><p className="text-xs text-slate-400">Per payment</p><p>{fromMist(grant.perPaymentLimit)} SUI</p></div>
-          <div><p className="text-xs text-slate-400">Expiry</p><p>{new Date(Number(grant.expiresAtMs)).toLocaleString()}</p></div>
-          <div className="sm:col-span-2 lg:col-span-4"><p className="text-xs text-slate-400">Authorized agent</p><p className="break-all font-mono text-xs">{grant.agent}</p></div>
+        <div className="grid gap-3 rounded-xl border border-slate-200 bg-sui-soft p-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
+          <div><p className="text-xs text-slate-500">Status</p><p className={grant.active ? "font-semibold text-emerald-700" : "font-semibold text-rose-700"}>{grant.active ? "Active" : "Revoked"}</p></div>
+          <div><p className="text-xs text-slate-500">Vault SUI</p><p>{vaultBalanceMist ? `${formatSuiFromMist(vaultBalanceMist)} SUI` : "…"}</p></div>
+          <div><p className="text-xs text-slate-500">Remaining today</p><p>{fromMist(remainingDailyMist(grant).toString())} / {fromMist(grant.dailyBudget)} SUI</p></div>
+          <div><p className="text-xs text-slate-500">Per payment</p><p>{fromMist(grant.perPaymentLimit)} SUI</p></div>
+          <div><p className="text-xs text-slate-500">Expiry</p><p>{new Date(Number(grant.expiresAtMs)).toLocaleString()}</p></div>
+          <div className="sm:col-span-2 lg:col-span-4"><p className="text-xs text-slate-500">Authorized agent</p><p className="break-all font-mono text-xs">{grant.agent}</p></div>
         </div>
 
         {(vaultBalanceMist && BigInt(vaultBalanceMist) === 0n) || remainingDailyMist(grant) === 0n ? (
-          <div className="space-y-1 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-100">
+          <div className="space-y-1 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
             {vaultBalanceMist && BigInt(vaultBalanceMist) === 0n ? (
               <p>Vault is empty. <Link className="underline" href="/assets">Fund on Assets</Link>.</p>
             ) : null}
@@ -313,13 +313,13 @@ export function TransferGrantActions() {
               <label className="text-sm">Sui address<Input value={recipient} onChange={(event) => setRecipient(event.target.value)} placeholder="0x..." /></label>
               <Button disabled={busy || !!pending || !passcodeConfigured || !workspace?.transferAdminCapId} onClick={() => prepare({ kind: "add", name: name.trim(), address: recipient.trim() })}>Add recipient</Button>
             </div>
-            <div className="space-y-2">{grant.recipients.map((entry) => <div key={entry.address} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-700 p-3 text-sm">
+            <div className="space-y-2">{grant.recipients.map((entry) => <div key={entry.address} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 p-3 text-sm">
               <span className="break-all"><strong>{entry.name}</strong> · <span className="font-mono text-xs">{entry.address}</span></span>
               <Button variant="outline" disabled={busy || !!pending || !workspace?.transferAdminCapId} onClick={() => prepare({ kind: "remove", name: entry.name, address: entry.address })}>Remove</Button>
-            </div>)}{grant.recipients.length === 0 && <p className="text-sm text-slate-400">No recipients yet. Add one before requesting a transfer.</p>}</div>
+            </div>)}{grant.recipients.length === 0 && <p className="text-sm text-slate-500">No recipients yet. Add one before requesting a transfer.</p>}</div>
           </div>
 
-          <details className="rounded-lg border border-slate-800 p-3 text-sm">
+          <details className="rounded-lg border border-slate-200 p-3 text-sm">
             <summary className="cursor-pointer font-medium">Change grant limits, expiry, or agent</summary>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <label>Max per payment (SUI)<Input type="number" min="0.000000001" step="any" value={perPaymentLimit} onChange={(event) => setPerPaymentLimit(event.target.value)} /></label>
@@ -336,8 +336,8 @@ export function TransferGrantActions() {
             </div>
           </details>
           <Button variant="danger" disabled={busy || !!pending} onClick={() => prepare({ kind: "revoke" })}>Revoke transfer grant</Button>
-        </> : <div className="space-y-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm">
-          <p className="font-semibold text-amber-100">This grant cannot spend. Create a replacement under the same vault.</p>
+        </> : <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm">
+          <p className="font-semibold text-amber-800">This grant cannot spend. Create a replacement under the same vault.</p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <label>Max per payment (SUI)<Input type="number" min="0.000000001" step="any" value={perPaymentLimit} onChange={(event) => setPerPaymentLimit(event.target.value)} /></label>
             <label>Daily budget (SUI)<Input type="number" min="0.000000001" step="any" value={dailyBudget} onChange={(event) => setDailyBudget(event.target.value)} /></label>
@@ -349,18 +349,18 @@ export function TransferGrantActions() {
             catch (cause) { setError(cause instanceof Error ? cause.message : String(cause)); }
           }}>Replace grant</Button>
         </div>}
-      </div> : <p className="text-sm text-slate-400">Loading transfer grant…</p>}
+      </div> : <p className="text-sm text-slate-500">Loading transfer grant…</p>}
 
-      {pending && <div className="space-y-3 rounded-xl border border-indigo-400/40 bg-indigo-500/10 p-4 text-sm">
+      {pending && <div className="space-y-3 rounded-xl border border-sui bg-sui-soft p-4 text-sm">
         <p className="font-semibold">Verify passcode, then approve in your wallet</p>
         <p className="break-all">{pendingLabel(pending)}</p>
-        <p className="text-xs text-slate-300">Your passcode is checked by this app. The wallet transaction records your approval on Sui.</p>
+        <p className="text-xs text-slate-700">Your passcode is checked by this app. The wallet transaction records your approval on Sui.</p>
         <label className="block">Passcode<Input type="password" autoComplete="off" value={passcode} onChange={(event) => setPasscode(event.target.value)} /></label>
         <div className="flex gap-2"><Button disabled={busy || !passcode} onClick={() => void work(verifyAndSign)}>{busy ? "Checking…" : "Verify and sign"}</Button><Button variant="outline" disabled={busy} onClick={() => { setPending(null); setPasscode(""); }}>Cancel</Button></div>
       </div>}
-      <div className="flex flex-wrap items-center gap-3"><Button variant="outline" disabled={busy} onClick={() => void work(refresh)}>Refresh grant</Button>{digest && <a className="break-all text-xs text-indigo-300 underline" href={explorerTxUrl(digest)} target="_blank" rel="noreferrer">View transaction {digest}</a>}</div>
-      {message && <p role="status" className="text-sm text-emerald-300">{message}</p>}
-      {error && <p role="alert" className="text-sm text-rose-300">{error}</p>}
+      <div className="flex flex-wrap items-center gap-3"><Button variant="outline" disabled={busy} onClick={() => void work(refresh)}>Refresh grant</Button>{digest && <a className="break-all text-xs text-sui-dark underline" href={explorerTxUrl(digest)} target="_blank" rel="noreferrer">View transaction {digest}</a>}</div>
+      {message && <p role="status" className="text-sm text-emerald-700">{message}</p>}
+      {error && <p role="alert" className="text-sm text-rose-700">{error}</p>}
     </CardContent>
   </Card>;
 }

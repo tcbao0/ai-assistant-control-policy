@@ -75,27 +75,27 @@ export function LegacyPolicyRevoker() {
 
   if (status === "loading" || status === "revoked") return null;
 
-  if (status === "error") return <Card className="mx-auto mt-6 max-w-7xl border-slate-600 bg-slate-900/70">
+  if (status === "error") return <Card className="mx-auto mt-6 max-w-7xl border-slate-200 bg-white">
     <CardHeader><CardTitle>Legacy policy status could not be verified</CardTitle></CardHeader>
     <CardContent className="space-y-3 text-sm">
-      <p className="text-slate-300">The app could not read the policy from Sui, so it cannot tell whether revocation is complete.</p>
-      {error && <p className="break-all text-rose-300">{error}</p>}
+      <p className="text-slate-700">The app could not read the policy from Sui, so it cannot tell whether revocation is complete.</p>
+      {error && <p className="break-all text-rose-700">{error}</p>}
       <Button variant="outline" onClick={() => void refreshStatus()}>Check status again</Button>
     </CardContent>
   </Card>;
 
-  return <Card className="mx-auto mt-6 max-w-7xl border-amber-500/40 bg-amber-950/20">
+  return <Card className="mx-auto mt-6 max-w-7xl border-amber-200 bg-amber-50">
     <CardHeader><CardTitle>Previous testnet policy is still active</CardTitle></CardHeader>
     <CardContent className="space-y-3 text-sm">
-      <p className="text-amber-100">This legacy policy is separate from the newly published package. Revoke it with the owner wallet before using the new vault.</p>
-      {!account && <p className="text-slate-300">Connect the owner wallet {ownerAddress} to continue.</p>}
-      {account && !isOwner && <p className="break-all text-rose-300">Connected wallet does not own this policy. Expected {ownerAddress}.</p>}
+      <p className="text-amber-800">This legacy policy is separate from the newly published package. Revoke it with the owner wallet before using the new vault.</p>
+      {!account && <p className="text-slate-700">Connect the owner wallet {ownerAddress} to continue.</p>}
+      {account && !isOwner && <p className="break-all text-rose-700">Connected wallet does not own this policy. Expected {ownerAddress}.</p>}
       <Button variant="danger" disabled={!isOwner || busy || network !== expectedNetwork} onClick={() => void revoke()}>
         {busy ? "Waiting for owner signature…" : "Revoke previous policy"}
       </Button>
       <Button variant="outline" disabled={busy} onClick={() => void refreshStatus()}>Refresh on-chain status</Button>
-      {message && <p className="break-all text-emerald-300">{message}</p>}
-      {error && <p className="break-all text-rose-300">{error}</p>}
+      {message && <p className="break-all text-emerald-700">{message}</p>}
+      {error && <p className="break-all text-rose-700">{error}</p>}
     </CardContent>
   </Card>;
 }

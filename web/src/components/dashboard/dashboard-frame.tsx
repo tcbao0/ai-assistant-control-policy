@@ -43,7 +43,7 @@ function VaultRequired({ children }: { children: ReactNode }) {
 
   if (loading) {
     return (
-      <main className="mx-auto max-w-7xl px-4 py-16 text-center text-slate-300">
+      <main className="mx-auto max-w-7xl px-4 py-16 text-center text-slate-700">
         <Loader2 className="mx-auto mb-3 h-5 w-5 animate-spin" />
         Loading your workspace…
       </main>
@@ -52,7 +52,7 @@ function VaultRequired({ children }: { children: ReactNode }) {
 
   if (!workspace?.vaultId) {
     return (
-      <main className="mx-auto max-w-xl px-4 py-16 text-center text-slate-300">
+      <main className="mx-auto max-w-xl px-4 py-16 text-center text-slate-700">
         <p className="mb-4">No vault yet. Taking you to first-time setup…</p>
         <Button asChild>
           <Link href="/setup">Open setup</Link>

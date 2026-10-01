@@ -1,0 +1,10 @@
+[package]
+name = "subscription_manager"
+edition = "2024"
+license = "Apache-2.0"
+authors = ["AI Subscription & Expense Manager"]
+
+[dependencies]
+
+[addresses]
+subscription_manager = "0x0"

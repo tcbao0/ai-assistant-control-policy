@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Next.js / Vercel
+web/.next/
+web/out/
+web/build/
+.vercel
+web/.vercel
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Sui / Move
+sui-contracts/build/
+sui-contracts/.coverage_map.mvcov
+sui-contracts/.trace
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.log
+
+# Misc
+dist/
+coverage/
+*.tsbuildinfo

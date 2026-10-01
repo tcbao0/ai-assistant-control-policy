@@ -1,0 +1,19 @@
+{
+  "name": "ai-subscription-expense-manager",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AI Subscription & Expense Manager — Sui as Control/Policy Plane",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build:web": "pnpm --filter web build",
+    "build:move": "sui move build -p sui-contracts",
+    "test:move": "sui move test -p sui-contracts",
+    "lint:web": "pnpm --filter web typecheck",
+    "test:web": "pnpm --filter web test:unit",
+    "test:smoke": "pnpm --filter web test:smoke"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

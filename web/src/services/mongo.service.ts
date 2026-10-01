@@ -34,7 +34,7 @@ export async function database() {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     if (/timed out|ECONNREFUSED|ENOTFOUND|MongoNetworkError/i.test(message)) {
-      throw new Error("Cannot reach MongoDB. Start MongoDB on 127.0.0.1:27017 and retry.");
+      throw new Error("Cannot reach MongoDB. Check MONGODB_URI, database user, and Atlas network access (0.0.0.0/0 for Vercel), then retry.");
     }
     throw error;
   }
